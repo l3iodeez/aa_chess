@@ -1,10 +1,12 @@
-class Piece
-  attr_reader :board, :position, :color, :type
+require 'byebug'
 
-  def initialize(position, board, type, color)
+class Piece
+  attr_reader :board, :position, :color
+  attr_writer :color
+
+  def initialize(position, board, color)
     @position =  position
     @board = board
-    @type = type
     @color = color
   end
 
@@ -17,10 +19,15 @@ class SlidingPieces < Piece
 
     self.class::MOVES.each do |k, v|
       current_pos = [position[0] + v[0], position[1] + v[1]]
+
       while Board.in_bounds?(current_pos) && (board[current_pos].nil? || board[current_pos].color != self.color)
         results << current_pos
-        break if board[current_pos].color == self.color
+        if current_pos == [0,5]
+          debugger
+        end
+        break if !board[current_pos].nil?
         current_pos = [current_pos[0] + v[0], current_pos[1] + v[1]]
+
       end
       current_pos = position
     end
