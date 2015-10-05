@@ -19,7 +19,7 @@
     grid[start_pos] = nil
   end
 
-  def in_bounds?(pos)
+  def self.in_bounds?(pos)
     return false unless pos.first.between?(0,7)
     return false unless pos.last.between?(0,7)
     true
