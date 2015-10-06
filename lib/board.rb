@@ -49,13 +49,13 @@
     [2,5].each do |i|
       self[[7,i]] = Bishop.new([7,i],self,:red)
     end
-    self[[7,4]] = Queen.new([7,4],self,:red)
-    self[[7,3]] = King.new([7,3],self, :red)
+    self[[7,3]] = Queen.new([7,3],self,:red)
+    self[[7,4]] = King.new([7,4],self, :red)
 
     nil
   end
 
-  def in_check(piece_color)
+  def in_check?(piece_color)
     enemy_pieces = grid.flatten.reject { |sq| sq.nil? || sq.color == piece_color }
     friendly_king = grid.flatten.select { |sq| sq.class == King && sq.color == piece_color }.first
 
@@ -64,13 +64,25 @@
   end
 
   def place_in_check?(start_pos, end_pos)
-    
+    test_board = dup_board
+    test_board.move!(start_pos, end_pos)
 
-
-
+    return test_board.in_check?(test_board[end_pos].color)
   end
 
-  def check_mate(piece_color)
+  def test_move(start_pos, end_pos)
+    test_board = dup_board
+    test_board.move!(start_pos, end_pos)
+    test_board
+  end
+
+  def check_mate?(piece_color)
+    friendly_pieces = grid.flatten.select { |sq| !sq.nil? && sq.color == piece_color }
+    friendly_pieces.all? do |piece|
+      piece.moves.all? do |move|
+        test_move(piece.position, move).in_check?(piece_color)
+      end
+    end
 
   end
 
@@ -84,9 +96,18 @@
     grid[x][y] = set_value
   end
 
-  def move(start_pos, end_pos)
+  def move!(start_pos, end_pos)
+    self[end_pos] = self[start_pos]
+    self[start_pos] = nil
+    self[end_pos].position = end_pos
+  end
+
+  def move(start_pos, end_pos, color)
     raise ArgumentError.new "There is no piece at starting position #{start_pos}." if self[start_pos] == nil
     raise ArgumentError.new "The selected piece cannot move the position #{end_pos}." if !self[start_pos].moves.include?(end_pos)
+    raise ArgumentError.new "This move will not move you out of check." if test_move(start_pos, end_pos).in_check?(self[start_pos].color)
+    raise ArgumentError.new "This move will place you in check." if place_in_check?(start_pos, end_pos)
+    raise ArgumentError.new "This piece does not belong to you." if self[start_pos].color != color
     self[end_pos] = self[start_pos]
     self[start_pos] = nil
     self[end_pos].position = end_pos

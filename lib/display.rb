@@ -1,13 +1,6 @@
-require "./lib/cursorable"
-require "./lib/board"
-require "./lib/pieces"
-require "colorize"
-require "yaml"
-
-
 class Display
-  attr_reader :board, :cursor_pos
-  attr_accessor :selected
+  attr_reader :board, :game
+  attr_accessor :selected, :cursor_pos
 
   DISPLAY_VALUES = {
     NilClass => "   ",
@@ -23,50 +16,13 @@ class Display
 
   include Cursorable
 
-  def initialize(board)
+  def initialize(board, game)
+    @game = game
     @board = board
     @cursor_pos = [0,0]
     @selected = nil
   end
-
-  def play
-    until false
-      play_turn
-    end
-  end
-
-  def play_turn
-      render
-      board.move(*get_move)
-  rescue ArgumentError => e
-      puts e.message
-  ensure
-      self.selected = nil
-  end
-
-  def get_pos
-    selected_pos = nil
-    until selected_pos
-      selected_pos = get_input
-      render
-    end
-    selected_pos
-  end
-
-
-  def get_move
-      start_pos = nil
-      until start_pos && board[start_pos]
-        start_pos = get_pos
-      end
-
-      self.selected = board[start_pos]
-
-      end_pos = get_pos
-      [start_pos, end_pos]
-  end
-
-  def render
+  def render_board
     system('clear')
      puts
       board.grid.each_with_index do |row, rindex|
@@ -76,13 +32,21 @@ class Display
         end
         puts
       end
+    nil
+  end
 
+  def render_text
       if selected.nil?
-        puts "Select a piece."
+        puts "It is #{game.current_player.color.to_s.capitalize}'s turn. Select a piece."
+        puts "You are in check." if game.board.in_check?(game.current_player.color)
       else
         puts "Moving #{selected.class.to_s} at #{selected.position}"
       end
     nil
+  end
+  def render
+    render_board
+    render_text
   end
 
   def apply_color(position)
