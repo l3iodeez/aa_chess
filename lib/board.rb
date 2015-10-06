@@ -1,8 +1,21 @@
  class Board
   attr_reader :grid
-  def initialize
-    @grid = Array.new(8){ Array.new(8)}
+  def initialize(grid = Array.new(8){ Array.new(8)} )
+    @grid = grid
     #call populate board to place all the pieces
+  end
+
+  def dup_board
+    new_board = Board.new
+    grid.each_with_index do |row, row_idx|
+      row.each_with_index do |sq, col_idx|
+        unless sq.nil?
+          pos = [row_idx, col_idx]
+          new_board[pos] = sq.class.new(pos,new_board,sq.color)
+        end
+      end
+    end
+    new_board
   end
 
   def populate_blue
@@ -49,6 +62,14 @@
     return enemy_pieces.any? {|piece| piece.moves.include?(friendly_king.position)}
     false
   end
+
+  def place_in_check?(start_pos, end_pos)
+    
+
+
+
+  end
+
   def check_mate(piece_color)
 
   end
@@ -69,7 +90,6 @@
     self[end_pos] = self[start_pos]
     self[start_pos] = nil
     self[end_pos].position = end_pos
-
   end
 
   def self.in_bounds?(pos)
