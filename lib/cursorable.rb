@@ -45,8 +45,10 @@ module Cursorable
     when :left, :right, :up, :down
       update_pos(MOVES[key])
       nil
+    when :escape
+      :escape
     else
-      puts key
+      #puts key
     end
   end
 

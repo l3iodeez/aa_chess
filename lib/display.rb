@@ -5,6 +5,7 @@ require "colorize"
 
 class Display
   attr_reader :board, :cursor_pos
+  attr_accessor :selected
 
   DISPLAY_VALUES = {
     NilClass => "   ",
@@ -22,32 +23,43 @@ class Display
   def initialize(board)
     @board = board
     @cursor_pos = [0,0]
-    @selected = false
+    @selected = nil
   end
 
-
   def play
-
-    loop do
-      render
-      board.move(*get_move)
+    until false
+      play_turn
     end
   end
 
+  def play_turn
+      render
+      board.move(*get_move)
+  rescue ArgumentError => e
+      puts e.message
+  ensure
+      self.selected = nil
+  end
+
+  def get_pos
+    selected_pos = nil
+    until selected_pos
+      selected_pos = get_input
+      render
+    end
+    selected_pos
+  end
+
+
   def get_move
-    start_pos = nil
+      start_pos = nil
       until start_pos && board[start_pos]
-        start_pos = get_input
-        render
-        print start_pos
+        start_pos = get_pos
       end
 
-    end_pos = nil
-      until end_pos && board[start_pos].moves.include?(end_pos)
-        end_pos = get_input
-        render
-      end
-    print [start_pos, end_pos]
+      self.selected = board[start_pos] 
+
+      end_pos = get_pos
       [start_pos, end_pos]
   end
 
@@ -66,6 +78,13 @@ class Display
         board.grid.length.times {print "----"}
         puts
       end
+
+      if selected.nil?
+        puts "Select a piece."
+      else
+        puts "Moving #{selected.class.to_s} at #{selected.position}"
+      end
+    nil
   end
 
   def apply_color(position)

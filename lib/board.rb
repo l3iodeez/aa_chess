@@ -10,13 +10,13 @@
       self[[1,i]] = Pawn.new([1,i],self,:b)
     end
     [0,7].each do |i|
-      self[[0,i]] = Rook.new([1,i],self,:b)
+      self[[0,i]] = Rook.new([0,i],self,:b)
     end
     [1,6].each do |i|
-      self[[0,i]] = Knight.new([1,i],self,:b)
+      self[[0,i]] = Knight.new([0,i],self,:b)
     end
     [2,5].each do |i|
-      self[[0,i]] = Bishop.new([1,i],self,:b)
+      self[[0,i]] = Bishop.new([0,i],self,:b)
     end
     self[[0,3]] = Queen.new([0,4],self,:b)
     self[[0,4]] = King.new([0,5],self, :b)
@@ -25,19 +25,19 @@
   end
   def populate_white
     8.times do |i|
-      self[[6,i]] = Pawn.new([1,i],self,:w)
+      self[[6,i]] = Pawn.new([6,i],self,:w)
     end
     [0,7].each do |i|
-      self[[7,i]] = Rook.new([1,i],self,:w)
+      self[[7,i]] = Rook.new([7,i],self,:w)
     end
     [1,6].each do |i|
-      self[[7,i]] = Knight.new([1,i],self,:w)
+      self[[7,i]] = Knight.new([7,i],self,:w)
     end
     [2,5].each do |i|
-      self[[7,i]] = Bishop.new([1,i],self,:w)
+      self[[7,i]] = Bishop.new([7,i],self,:w)
     end
-    self[[7,4]] = Queen.new([0,4],self,:w)
-    self[[7,3]] = King.new([0,5],self, :w)
+    self[[7,4]] = Queen.new([7,4],self,:w)
+    self[[7,3]] = King.new([7,5],self, :w)
 
     nil
   end
@@ -53,8 +53,8 @@
   end
 
   def move(start_pos, end_pos)
-    raise ArgumentError if self[start_pos] == nil
-    raise ArgumentError if !self[start_pos].moves.include?(end_pos)
+    raise ArgumentError.new "There is no piece at starting position #{start_pos}." if self[start_pos] == nil
+    raise ArgumentError.new "The selected piece cannot move the position #{end_pos}." if !self[start_pos].moves.include?(end_pos)
     self[end_pos] = self[start_pos]
     self[start_pos] = nil
     self[end_pos].position = end_pos
