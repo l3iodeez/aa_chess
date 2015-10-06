@@ -11,14 +11,15 @@ class Display
 
   DISPLAY_VALUES = {
     NilClass => "   ",
-    Pawn => " P ",
-    Rook => " R ",
-    Knight => " H ",
-    Bishop => " B ",
-    King => " K ",
-    Queen => " Q ",
-    :| => "|"
+    Pawn => " \u265F ".encode("utf-8"),
+    Rook => " \u265C ".encode("utf-8"),
+    Knight => " \u265E ".encode("utf-8"),
+    Bishop => " \u265D ".encode("utf-8"),
+    King => " \u265A ".encode("utf-8"),
+    Queen => " \u265B ".encode("utf-8")
   }
+
+
 
   include Cursorable
 
@@ -67,17 +68,12 @@ class Display
 
   def render
     system('clear')
-     board.grid.length.times {print "----"}
      puts
       board.grid.each_with_index do |row, rindex|
-        print "|"
         row.each_with_index do |piece, pindex|
           pos = [rindex,pindex]
           print apply_color(pos)
-          print DISPLAY_VALUES[:|]
         end
-        puts
-        board.grid.length.times {print "----"}
         puts
       end
 

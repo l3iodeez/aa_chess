@@ -45,9 +45,12 @@
   def in_check(piece_color)
     enemy_pieces = grid.flatten.reject { |sq| sq.nil? || sq.color == piece_color }
     friendly_king = grid.flatten.select { |sq| sq.class == King && sq.color == piece_color }.first
-  
+
     return enemy_pieces.any? {|piece| piece.moves.include?(friendly_king.position)}
     false
+  end
+  def check_mate(piece_color)
+
   end
 
   def [](pos)
