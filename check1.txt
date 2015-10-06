@@ -1,0 +1,226 @@
+--- &1 !ruby/object:blueoard
+grid:
+- - !ruby/object:Rook
+    position:
+    - 0
+    - 0
+    board: *1
+    color: :blue
+  - !ruby/object:Knight
+    position:
+    - 0
+    - 1
+    board: *1
+    color: :blue
+  - !ruby/object:blueishop
+    position:
+    - 0
+    - 2
+    board: *1
+    color: :blue
+  - !ruby/object:Queen
+    position:
+    - 0
+    - 4
+    board: *1
+    color: :blue
+  - !ruby/object:King
+    position:
+    - 0
+    - 5
+    board: *1
+    color: :blue
+  - !ruby/object:blueishop
+    position:
+    - 0
+    - 5
+    board: *1
+    color: :blue
+  - !ruby/object:Knight
+    position:
+    - 0
+    - 6
+    board: *1
+    color: :blue
+  - !ruby/object:Rook
+    position:
+    - 0
+    - 7
+    board: *1
+    color: :blue
+- - !ruby/object:Pawn
+    position:
+    - 1
+    - 0
+    board: *1
+    color: :blue
+  - !ruby/object:Pawn
+    position:
+    - 1
+    - 1
+    board: *1
+    color: :blue
+  - !ruby/object:Pawn
+    position:
+    - 1
+    - 2
+    board: *1
+    color: :blue
+  -
+  - !ruby/object:Pawn
+    position:
+    - 1
+    - 4
+    board: *1
+    color: :blue
+  - !ruby/object:Pawn
+    position:
+    - 1
+    - 5
+    board: *1
+    color: :blue
+  - !ruby/object:Pawn
+    position:
+    - 1
+    - 6
+    board: *1
+    color: :blue
+  - !ruby/object:Pawn
+    position:
+    - 1
+    - 7
+    board: *1
+    color: :blue
+- -
+  -
+  -
+  - !ruby/object:Pawn
+    position:
+    - 2
+    - 3
+    board: *1
+    color: :blue
+  -
+  -
+  -
+  -
+- -
+  - !ruby/object:blueishop
+    position:
+    - 3
+    - 1
+    board: *1
+    color: :red
+  -
+  -
+  -
+  -
+  -
+  -
+- -
+  -
+  -
+  - !ruby/object:Pawn
+    position:
+    - 4
+    - 3
+    board: *1
+    color: :red
+  - !ruby/object:Pawn
+    position:
+    - 4
+    - 4
+    board: *1
+    color: :red
+  -
+  - !ruby/object:Pawn
+    position:
+    - 4
+    - 6
+    board: *1
+    color: :red
+  - !ruby/object:Queen
+    position:
+    - 4
+    - 7
+    board: *1
+    color: :red
+- -
+  -
+  -
+  -
+  -
+  - !ruby/object:Pawn
+    position:
+    - 5
+    - 5
+    board: *1
+    color: :red
+  -
+  -
+- - !ruby/object:Pawn
+    position:
+    - 6
+    - 0
+    board: *1
+    color: :red
+  - !ruby/object:Pawn
+    position:
+    - 6
+    - 1
+    board: *1
+    color: :red
+  - !ruby/object:Pawn
+    position:
+    - 6
+    - 2
+    board: *1
+    color: :red
+  -
+  -
+  -
+  -
+  - !ruby/object:Pawn
+    position:
+    - 6
+    - 7
+    board: *1
+    color: :red
+- - !ruby/object:Rook
+    position:
+    - 7
+    - 0
+    board: *1
+    color: :red
+  - !ruby/object:Knight
+    position:
+    - 7
+    - 1
+    board: *1
+    color: :red
+  - !ruby/object:blueishop
+    position:
+    - 7
+    - 2
+    board: *1
+    color: :red
+  - !ruby/object:King
+    position:
+    - 7
+    - 5
+    board: *1
+    color: :red
+  -
+  -
+  - !ruby/object:Knight
+    position:
+    - 7
+    - 6
+    board: *1
+    color: :red
+  - !ruby/object:Rook
+    position:
+    - 7
+    - 7
+    board: *1
+    color: :red

@@ -2,6 +2,8 @@ require "./lib/cursorable"
 require "./lib/board"
 require "./lib/pieces"
 require "colorize"
+require "yaml"
+
 
 class Display
   attr_reader :board, :cursor_pos
@@ -57,7 +59,7 @@ class Display
         start_pos = get_pos
       end
 
-      self.selected = board[start_pos] 
+      self.selected = board[start_pos]
 
       end_pos = get_pos
       [start_pos, end_pos]
@@ -92,9 +94,9 @@ class Display
 
     board[position].nil? ? piece_color = nil : piece_color = board[position].color
 
-    if piece_color == :w
+    if piece_color == :red
       string = DISPLAY_VALUES[piece_class].colorize( :color => :light_red)
-    elsif piece_color == :b
+    elsif piece_color == :blue
       string = DISPLAY_VALUES[piece_class].colorize( :color => :light_blue)
     else
       string = DISPLAY_VALUES[piece_class]
@@ -113,7 +115,11 @@ end
 
 # load './lib/display.rb'
 # b = Board.new
-# b.populate_black
-# b.populate_white
+# b.populate_blue
+# b.populate_red
 # d = Display.new(b)
 # d.render
+
+
+
+# b = YAML.load_file("check1.txt")

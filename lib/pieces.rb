@@ -122,8 +122,8 @@ end
 
 class Pawn < Piece
   MOVES = {
-    :w => {:moving => [[-1,0]], :two_space_move => [[-2,0]], :attacking => [[-1,-1],[-1,1]]},
-    :b => {:moving => [[1,0]], :two_space_move => [[2,0]], :attacking => [[1,-1],[1,1]] }
+    :red => {:moving => [[-1,0]], :two_space_move => [[-2,0]], :attacking => [[-1,-1],[-1,1]]},
+    :blue => {:moving => [[1,0]], :two_space_move => [[2,0]], :attacking => [[1,-1],[1,1]] }
   }
 
   def apply_deltas
@@ -156,8 +156,8 @@ class Pawn < Piece
   end
 
   def unmoved?
-    return true if self.color == :w && self.position[0] == 6
-    return true if self.color == :b && self.position[0] == 1
+    return true if self.color == :red && self.position[0] == 6
+    return true if self.color == :blue && self.position[0] == 1
     false
   end
 
@@ -166,7 +166,7 @@ end
 # load "./lib/display.rb"
 # load "./lib/pieces.rb"
 # b = Board.new
-# p1 = Pawn.new([4,0],b,:w)
-# p2 = Pawn.new([3,1],b,:b)
+# p1 = Pawn.new([4,0],b,:red)
+# p2 = Pawn.new([3,1],b,:blue)
 # b[[4,0]] = p1
 # b[[3,1]] = p2
